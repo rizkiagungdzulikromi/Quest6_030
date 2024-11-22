@@ -22,3 +22,11 @@ enum class Halaman {
     Peminatan,
     TampilKrs
 }
+
+@Composable
+fun MahasiswaApp(
+    modifier: Modifier = Modifier,
+    mahasiswaViewModel: MahasiswaViewModel = viewModel(),
+    RencanaStudyViewModel: RencanaStudyViewModel = viewModel(),
+    navController: NavHostController = rememberNavController()
+)
