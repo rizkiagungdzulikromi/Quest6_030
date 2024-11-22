@@ -72,3 +72,20 @@ fun MahasiswaApp(
                 }
             )
         }
+
+        composable(route = Halaman.TampilKrs.name) {
+            TampilView(
+                mahasiswa = mahasiswaUiState,
+                krs = rencanaStudiUiState,
+                onbackbuttonClicked = {
+                    navController.popBackStack()
+                },
+                onResetButtonClicked = {
+                    navController.navigate(Halaman.Splash.name)
+                }
+            )
+        }
+
+
+    }
+}
