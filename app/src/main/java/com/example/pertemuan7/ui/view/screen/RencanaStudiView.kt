@@ -116,6 +116,140 @@ fun RencanaStudyView(
                 modifier = Modifier.size(24.dp)
             )
         }
+
+        Box(
+            modifier = Modifier
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(
+                        topEnd = 15.dp,
+                        topStart = 15.dp
+                    )
+                )
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                // Title and Description
+                Text(
+                    text = "Pilih Mata Kuliah Peminatan",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Text(
+                    text = "Silahkan pilih mata kuliah yang anda inginkan",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light,
+                    color = Color.Gray
+                )
+
+
+                Spacer(modifier = Modifier.padding(8.dp))
+
+
+                // Mata Kuliah Dropdown
+                DynamicSelectedField(
+                    selectedValue = chosenDropdown,
+                    options = MataKuliah.options,
+                    label = "Mata Kuliah",
+                    onValueChangedEvent = {
+                        chosenDropdown = it
+                    }
+                )
+
+                Spacer(modifier = Modifier.padding(8.dp))
+
+
+                // Divider
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+
+                // Kelas Selection
+                Text(
+                    text = "Silahkan pilih Kelas dari mata kuliah yang anda inginkan",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light,
+                    color = Color.Gray
+                )
+
+
+                Spacer(modifier = Modifier.padding(8.dp))
+
+// Kelas Options
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    RuangKelas.kelas.forEach { data ->
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = pilihanKelas == data,
+                                onClick = { pilihanKelas = data }
+                            )
+                            Text(text = data, style = androidx.compose.ui.text.TextStyle(fontSize = 12.sp))
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.padding(8.dp))
+
+
+                // Divider
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+
+                // Klausul Persetujuan Mahasiswa
+                Text(text = "Klausul Persetujuan Mahasiswa", fontWeight = FontWeight.Bold)
+
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        enabled = chosenDropdown.isNotBlank() && pilihanKelas.isNotBlank()
+                    )
+                    Text(
+                        text = "Saya Menyetujui setiap pernyataan yang ada tanpa ada paksaan dari pihak manapun.",
+                        fontWeight = FontWeight.Light,
+                        fontSize = 10.sp,
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.padding(8.dp))
+
+
+                // Buttons Section
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    // Back Button
+                    Button(
+                        onClick = { onbackbuttonClicked() },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.primary),
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Text(text = "Kembali")
+                    }
+// Next Button
+                    Button(
+                        onClick = { onSubmitButton(listData) },
+                        enabled = checked,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.primary),
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Text(text = "Berikutnya")
+                    }
+                }
+            }
+        }
 // Form Section
 
     }
