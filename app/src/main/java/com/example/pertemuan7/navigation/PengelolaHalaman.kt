@@ -50,3 +50,25 @@ fun MahasiswaApp(
                     navController.navigate(Halaman.Mahasiswa.name)
                 })
         }
+
+        composable(route = Halaman.Mahasiswa.name) {
+            MahasiswaFormView(
+                onSubmitButton = {
+                    mahasiswaViewModel.saveDataMahasiswa(it)
+                    navController.navigate(Halaman.Peminatan.name)},
+                onbackbuttonClicked = {navController.popBackStack()}
+            )
+        }
+
+        composable(route = Halaman.Peminatan.name) {
+            RencanaStudyView(
+                mahasiswa = mahasiswaUiState,
+                onSubmitButton = {
+                    RencanaStudyViewModel.saveDataKRS(it)
+                    navController.navigate(Halaman.TampilKrs.name)
+                },
+                onbackbuttonClicked = {
+                    navController.popBackStack()
+                }
+            )
+        }
